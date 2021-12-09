@@ -1,38 +1,21 @@
-/* const myHeading = document.querySelector('h1');
-myHeading.textContent = 'Hello world!';
- */
-let myImage = document.querySelector('img');
+const list = document.createElement('ul');
+const info = document.createElement('p');
+const html = document.querySelector('html');
 
-myImage.onclick = function() {
-    let mySrc = myImage.getAttribute('src');
-    if(mySrc === 'images/firefox-icon.png') {
-      myImage.setAttribute('src','images/firefox-icon2.jpg');
-    } else {
-      myImage.setAttribute('src','images/firefox-icon.png');
-    }
-}
+info.textContent = 'Below is a dynamic list. Click anywhere on the page to add a new list item. Click an existing list item to change its text to something else.';
 
-let btn = document.querySelector('button');
-let heading = document.querySelector('h1');
+document.body.appendChild(info);
+document.body.appendChild(list);
 
-function SetHeading()
-{
-    let vhead = prompt('何か入力してください');
-    localStorage.setItem('head',vhead);
-    heading.textContent = vhead;
-}
+html.onclick = function() {
+  const listItem = document.createElement('li');
+  const listContent = prompt('What content do you want the list item to have?');
+  listItem.textContent = listContent;
+  list.appendChild(listItem);
 
-if(!localStorage.getItem('head'))
-{
-    SetHeading();
-}
-else
-{
-    let bfrhead = localStorage.getItem('head');
-    heading.textContent = bfrhead;
-}
-
-btn.onclick = function() 
-  {
-    SetHeading();
+  listItem.onclick = function(e) {
+    e.stopPropagation();
+    const listContent = prompt('Enter new content for your list item');
+    this.textContent = listContent;
   }
+}
